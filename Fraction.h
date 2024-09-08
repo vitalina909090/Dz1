@@ -1,14 +1,17 @@
 #pragma once
-class Fraction
-{
-// за замовчуванням приватна інформація
-    int numerator; //чисельник
-    int denominator; //знаменник
+class Fraction {
+private:
+    int numerator;
+    int denominator;
+
+    int biggest(int a, int b);
 
 public:
-    // ввід
     void input();
-    // вивід
     void output();
+    Fraction addition(Fraction other);
+    Fraction subtraction(Fraction other);
+    Fraction multiplication(Fraction other);
+    Fraction division(Fraction other);
+    void reduction();
 };
-
