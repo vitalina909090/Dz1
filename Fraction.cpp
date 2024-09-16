@@ -89,17 +89,17 @@ void Fraction::reduction() {
 
 void Fraction::maximumReduction() {
     int whole = numerator / denominator;
-    int remainder = numerator % denominator;
+    int remainder = numerator % denominator; 
 
-    if (remainder != 0) {
+    if (remainder != 0) { 
         if (whole != 0) {
             cout << whole << " цілих " << remainder << "/" << denominator << endl;
         }
-        else {
+        else { 
             cout << remainder << "/" << denominator << endl;
         }
     }
-    else {
-        cout << whole << " цілих" << endl;
+    else {  
+        cout << whole << endl;
     }
 }
