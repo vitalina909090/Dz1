@@ -3,6 +3,12 @@
 
 using namespace std;
 
+Fraction::Fraction(int numeratorP, int denominatorP) : numerator(numeratorP), denominator(denominatorP) {
+    reduction();
+}
+
+Fraction::Fraction() : Fraction(0, 1) { }
+
 void Fraction::input() {
     cout << "¬вед≥ть чисельник: ";
     cin >> numerator;
@@ -13,9 +19,10 @@ void Fraction::input() {
             cout << "«наменник не може бути нульовим!" << endl;
         }
     } while (denominator == 0);
+    reduction();
 }
 
-void Fraction::output() {
+void Fraction::output(){
     cout << numerator << "/" << denominator;
 }
 
@@ -28,40 +35,71 @@ int Fraction::biggest(int a, int b) {
     return a;
 }
 
-Fraction Fraction::addition(Fraction other) {
-    Fraction result;
-    result.numerator = numerator * other.denominator + other.numerator * denominator;
-    result.denominator = denominator * other.denominator;
-    result.reduction();
-    return result;
+Fraction& Fraction::addition(const Fraction& other) {
+    numerator = numerator * other.denominator + other.numerator * denominator;
+    denominator = denominator * other.denominator;
+    reduction();
+    return *this;
 }
 
-Fraction Fraction::subtraction(Fraction other) {
-    Fraction result;
-    result.numerator = numerator * other.denominator - other.numerator * denominator;
-    result.denominator = denominator * other.denominator;
-    result.reduction();
-    return result;
+Fraction& Fraction::subtraction(const Fraction& other) {
+    numerator = numerator * other.denominator - other.numerator * denominator;
+    denominator = denominator * other.denominator;
+    reduction();
+    return *this;
 }
 
-Fraction Fraction::multiplication(Fraction other) {
-    Fraction result;
-    result.numerator = numerator * other.numerator;
-    result.denominator = denominator * other.denominator;
-    result.reduction();
-    return result;
+Fraction& Fraction::multiplication(const Fraction& other) {
+    numerator = numerator * other.numerator;
+    denominator = denominator * other.denominator;
+    reduction();
+    return *this;
 }
 
-Fraction Fraction::division(Fraction other) {
-    Fraction result;
-    result.numerator = numerator * other.denominator;
-    result.denominator = denominator * other.numerator;
-    result.reduction();
-    return result;
+Fraction& Fraction::division(const Fraction& other) {
+    numerator = numerator * other.denominator;
+    denominator = denominator * other.numerator;
+    reduction();
+    return *this;
+}
+
+Fraction& Fraction::additionInteger(int integer) {
+    numerator = numerator + integer * denominator;
+    reduction();
+    return *this;
+}
+
+Fraction& Fraction::subtractionInteger(int integer) {
+    numerator = numerator - integer * denominator;
+    reduction();
+    return *this;
+}
+
+Fraction& Fraction::multiplicationInteger(int integer) {
+    numerator = numerator * integer;
+    reduction();
+    return *this;
 }
 
 void Fraction::reduction() {
     int division = biggest(numerator, denominator);
     numerator /= division;
     denominator /= division;
+}
+
+void Fraction::maximumReduction() {
+    int whole = numerator / denominator;
+    int remainder = numerator % denominator;
+
+    if (remainder != 0) {
+        if (whole != 0) {
+            cout << whole << " ц≥лих " << remainder << "/" << denominator << endl;
+        }
+        else {
+            cout << remainder << "/" << denominator << endl;
+        }
+    }
+    else {
+        cout << whole << " ц≥лих" << endl;
+    }
 }

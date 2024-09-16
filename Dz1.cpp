@@ -9,58 +9,71 @@ int main() {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
-    int choice, choice2 = 1;
+    int choice;
+    int integerNum;
 
-    cout << "\nЯку математичну дію бажаєте виконати?\n[1]Додавання\n[2]Віднімання\n[3]Множення\n[4]Ділення\n";
+    cout << "\nЯку математичну дію бажаєте виконати?\n[1] Додавання дробів\n[2] Віднімання дробів\n[3] Множення дробів\n[4] Ділення дробів\n[5] Додавання дробу з цілим числом\n[6] Віднімання дробу з цілим числом\n[7] Множення дробу з цілим числом\n";
     cin >> choice;
 
-    Fraction num1, num2;
-    cout << "Введіть перший дріб: \n";
-    num1.input();
-    cout << "Введіть другий дріб: \n";
-    num2.input();
+    if (choice >= 1 && choice <= 4) {
+        Fraction fraction1, fraction2;
+        cout << "Введіть перший дріб: \n";
+        fraction1.input();
+        cout << "Введіть другий дріб: \n";
+        fraction2.input();
 
-    vector<Fraction> fractions;
-    fractions.push_back(num1);
-    fractions.push_back(num2);
+        Fraction result;
 
-    do {
-        cout << "Додати ще один дріб? [1]-так [0]-ні: ";
-        cin >> choice2;
-
-        if (choice2 == 1) {
-            Fraction additional;
-            cout << "Введіть додатковий дріб: \n";
-            additional.input();
-            fractions.push_back(additional);
-        }
-
-    } while (choice2 == 1);
-
-    Fraction result = fractions[0];
-
-    for (int i = 1; i < fractions.size(); i++) {
         switch (choice) {
         case 1:
-            result = result.addition(fractions[i]);
+            result = fraction1.addition(fraction2);
             break;
         case 2:
-            result = result.subtraction(fractions[i]);
+            result = fraction1.subtraction(fraction2);
             break;
         case 3:
-            result = result.multiplication(fractions[i]);
+            result = fraction1.multiplication(fraction2);
             break;
         case 4:
-            result = result.division(fractions[i]);
+            result = fraction1.division(fraction2);
             break;
         default:
             cout << "Помилка" << endl;
-            return 1;
         }
-    }
 
-    cout << "Результат: ";
-    result.output();
+        cout << "Результат: ";
+        result.maximumReduction();
+    }
+    else if (choice >= 5 && choice <= 7) {
+        Fraction fraction;
+        cout << "Введіть дріб: \n";
+        fraction.input();
+
+        cout << "Введіть ціле число: ";
+        cin >> integerNum;
+
+        Fraction result;
+
+        switch (choice) {
+        case 5:
+            result = fraction.additionInteger(integerNum);
+            break;
+        case 6:
+            result = fraction.subtractionInteger(integerNum);
+            break;
+        case 7:
+            result = fraction.multiplicationInteger(integerNum);
+            break;
+        default:
+            cout << "Помилка" << endl;
+        }
+
+        cout << "Результат: ";
+        result.maximumReduction();
+    }
+    else {
+        cout << "Невірний вибір" << endl;
+    }
 
     return 0;
 }
